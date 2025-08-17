@@ -37,7 +37,8 @@ actualizarMensaje(`Turno de: ${turno}`);
 
 celdas.forEach((celda) => {
   celda.addEventListener("click", () => {
-    if (celda.textContent !== "") return;
+    if (celda.textContent !== "")
+      return alert("Esta celda ya esta ocupada, intenta en otra");
 
     celda.textContent = turno;
     celda.classList.add(turno);
@@ -48,13 +49,17 @@ celdas.forEach((celda) => {
       return;
     }
 
-    if ([...celdas].every((c) => c.textContent !== "")) {
+    if ([...celdas].every((contenedor) => contenedor.textContent !== "")) {
       actualizarMensaje("🤝 ¡Empate!");
       setTimeout(reiniciarJuego, 1500);
       return;
     }
 
-    turno = turno === "X" ? "O" : "X";
+    if (turno === "X") {
+      turno = "O";
+    } else {
+      turno = "X";
+    }
     actualizarMensaje(`Turno de: ${turno}`);
   });
 });
